@@ -18,15 +18,15 @@ ApplicationList::ApplicationList(Pinetime::Applications::DisplayApp* app,
     dateTimeController {dateTimeController},
     screens {app,
              settingsController.GetAppMenu(),
-             {
-               [this]() -> std::unique_ptr<Screen> {
-                 return CreateScreen1();
-               },
-               [this]() -> std::unique_ptr<Screen> {
-                 return CreateScreen2();
-               },
-               //[this]() -> std::unique_ptr<Screen> { return CreateScreen3(); }
-             },
+             {[this]() -> std::unique_ptr<Screen> {
+                return CreateScreen1();
+              },
+              [this]() -> std::unique_ptr<Screen> {
+                return CreateScreen2();
+              },
+              [this]() -> std::unique_ptr<Screen> {
+                return CreateScreen3();
+              }},
              Screens::ScreenListModes::UpDown} {
 }
 
@@ -53,8 +53,7 @@ std::unique_ptr<Screen> ApplicationList::CreateScreen1() {
 
 std::unique_ptr<Screen> ApplicationList::CreateScreen2() {
   std::array<Screens::Tile::Applications, 6> applications {{
-      /* TODO: Restore paint, add another symbol for Sched */
-    {Symbols::paintbrush, Apps::Sched},
+    {Symbols::paintbrush, Apps::Paint},
     {Symbols::paddle, Apps::Paddle},
     {"2", Apps::Twos},
     {Symbols::chartLine, Apps::Motion},
@@ -65,16 +64,9 @@ std::unique_ptr<Screen> ApplicationList::CreateScreen2() {
   return std::make_unique<Screens::Tile>(1, 2, app, settingsController, batteryController, dateTimeController, applications);
 }
 
-/*std::unique_ptr<Screen> ApplicationList::CreateScreen3() {
+std::unique_ptr<Screen> ApplicationList::CreateScreen3() {
   std::array<Screens::Tile::Applications, 6> applications {
-          {{"A", Apps::Meter},
-           {"B", Apps::Navigation},
-           {"C", Apps::Clock},
-           {"D", Apps::Music},
-           {"E", Apps::SysInfo},
-           {"F", Apps::Brightness}
-          }
+          {{"Sched", Apps::Sched},}
   };
-
   return std::make_unique<Screens::Tile>(2, 3, app, settingsController, batteryController, dateTimeController, applications);
-}*/
+}
