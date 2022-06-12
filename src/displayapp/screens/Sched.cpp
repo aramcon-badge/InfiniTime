@@ -1,4 +1,5 @@
 #include <ctime>
+#include <array>
 
 #include "displayapp/TouchEvents.h"
 #include "displayapp/screens/Sched.hpp"
@@ -11,14 +12,42 @@
 struct Entry {
   const char* what;
   const char* where;
-  ::time_t when;
+  std::tm when;
 };
+
+static constexpr int year_for_tm(int year) {
+  return year - 1900;
+}
 
 static constexpr std::array<Entry, 3> SCHEDULE = {
   // TODO: Fill with real entries
-  Entry {"Opening", "Lobby", 0},
-  Entry {"Some lecture", "Some room", 0},
-  Entry {"Ending", "Lobby", 0},
+  Entry {"Opening",
+         "Lobby",
+         std::tm {
+           .tm_min = 30,
+           .tm_hour = 10,
+           .tm_mday = 01,
+           .tm_mon = 01,
+           .tm_year = year_for_tm(2022),
+         }},
+  Entry {"Some lecture",
+         "Some room",
+         std::tm {
+           .tm_min = 45,
+           .tm_hour = 13,
+           .tm_mday = 01,
+           .tm_mon = 01,
+           .tm_year = year_for_tm(2022),
+         }},
+  Entry {"Ending",
+         "Lobby",
+         std::tm {
+           .tm_min = 30,
+           .tm_hour = 10,
+           .tm_mday = 03,
+           .tm_mon = 01,
+           .tm_year = year_for_tm(2022),
+         }},
 };
 
 // TODO: Set alarms for each entry
@@ -70,7 +99,10 @@ namespace Pinetime::Applications::Screens {
   }
 
   void Schedule::refreshText() {
+    auto formatted_date_buffer = std::array<char, 0x50> {};
     auto const& entry = SCHEDULE.at(this->scroll_index);
-    ::lv_label_set_text_fmt(this->sched_entry_label, "%s %s %d", entry.what, entry.where, entry.when);
+    (void) std::strftime(formatted_date_buffer.data(), formatted_date_buffer.size(), "%d/%m %H:%M", &entry.when);
+
+    ::lv_label_set_text_fmt(this->sched_entry_label, "%s\n%s %s", formatted_date_buffer.data(), entry.what, entry.where);
   }
 }
