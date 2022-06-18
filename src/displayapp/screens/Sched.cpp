@@ -23,16 +23,28 @@ static constexpr int year_for_tm(int year) {
   return year - 1900;
 }
 
-static constexpr std::array<Entry, 3> SCHEDULE = {
+static constexpr std::array<Entry, 4> SCHEDULE = {
   // TODO: Fill with real entries
+  Entry {
+    "Planing",
+    "Bar",
+    std::tm {
+      .tm_min = 30,
+      .tm_hour = 10,
+      .tm_mday = 01,
+      .tm_mon = 01,
+      .tm_year = year_for_tm(2021),
+    },
+    60min,
+  },
   Entry {
     "Opening",
     "Lobby",
     std::tm {
       .tm_min = 30,
       .tm_hour = 10,
-      .tm_mday = 01,
-      .tm_mon = 01,
+      .tm_mday = 1,
+      .tm_mon = 8,
       .tm_year = year_for_tm(2022),
     },
     60min,
@@ -43,8 +55,8 @@ static constexpr std::array<Entry, 3> SCHEDULE = {
     std::tm {
       .tm_min = 45,
       .tm_hour = 13,
-      .tm_mday = 01,
-      .tm_mon = 01,
+      .tm_mday = 1,
+      .tm_mon = 8,
       .tm_year = year_for_tm(2022),
     },
     120min,
@@ -55,8 +67,8 @@ static constexpr std::array<Entry, 3> SCHEDULE = {
     std::tm {
       .tm_min = 30,
       .tm_hour = 10,
-      .tm_mday = 03,
-      .tm_mon = 01,
+      .tm_mday = 3,
+      .tm_mon = 8,
       .tm_year = year_for_tm(2022),
     },
     10min,
@@ -64,16 +76,36 @@ static constexpr std::array<Entry, 3> SCHEDULE = {
 };
 
 // TODO: Set alarms for each entry
-// TODO: Filter out events from the past
 
 static auto constexpr INSTRUCTIONS = "<-- NEXT\n--> PREV";
+
+static std::chrono::system_clock::time_point time_point_from_tm(std::tm const& date) {
+  auto tmp_date = date;
+  return std::chrono::system_clock::from_time_t(std::mktime(&tmp_date));
+}
 
 namespace Pinetime::Applications::Screens {
 
   Schedule::Schedule(DisplayApp* app)
     : Screen {app},
+      scroll_index {0},
       sched_entry_label {::lv_label_create(lv_scr_act(), nullptr)},
       instructions_label {::lv_label_create(lv_scr_act(), nullptr)} {
+
+    // Find first event that didn't conclude yet
+    while (true) {
+      if (this->scroll_index == SCHEDULE.size() - 1) {
+        break;
+      }
+
+      auto const& entry = SCHEDULE.at(this->scroll_index);
+
+      if (time_point_from_tm(entry.when) + entry.length >= std::chrono::system_clock::now()) {
+        break;
+      }
+
+      ++this->scroll_index;
+    }
 
     ::lv_obj_align(this->sched_entry_label, nullptr, ::LV_ALIGN_IN_TOP_LEFT, 0, 0);
     ::lv_label_set_long_mode(this->sched_entry_label, ::LV_LABEL_LONG_BREAK);
