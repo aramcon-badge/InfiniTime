@@ -6,8 +6,16 @@
 
 using namespace Pinetime::Applications::Screens;
 
+bool ctf_solved = false;
+
 namespace {
   const char* ToString(Pinetime::Controllers::HeartRateController::States s) {
+
+    if (ctf_solved)
+    {
+      return "FLAG: XX/XX/XX"; // TODO: update with flag from the system
+    }
+
     switch (s) {
       case Pinetime::Controllers::HeartRateController::States::NotEnoughData:
         return "Not enough data,\nplease wait...";
@@ -16,7 +24,7 @@ namespace {
       case Pinetime::Controllers::HeartRateController::States::Running:
         return "Measuring...";
       case Pinetime::Controllers::HeartRateController::States::Stopped:
-        return "Stopped";
+        return "Stopped, CTF? 137";
     }
     return "";
   }
@@ -84,7 +92,12 @@ void HeartRate::Refresh() {
       lv_label_set_text(label_hr, "000");
       break;
     default:
-      lv_label_set_text_fmt(label_hr, "%03d", heartRateController.HeartRate());
+      const uint32_t hr = heartRateController.HeartRate();
+      if (hr >= 137)
+      {
+         ctf_solved = true;
+      }
+      lv_label_set_text_fmt(label_hr, "%03d", hr);
   }
 
   lv_label_set_text(label_status, ToString(state));
