@@ -16,7 +16,10 @@ namespace Pinetime::Applications::Screens {
     void refreshText();
 
     std::size_t scroll_index;
-    ::lv_obj_t* sched_entry_label;
+    ::lv_obj_t* entry_what_label;
+    ::lv_obj_t* entry_where_label;
+    ::lv_obj_t* entry_when_label;
+    ::lv_obj_t* entry_length_label;
     ::lv_obj_t* instructions_label;
   };
 }
