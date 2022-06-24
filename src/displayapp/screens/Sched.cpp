@@ -23,7 +23,7 @@ struct Entry {
 
 // TODO: Set alarms for each entry
 
-static auto constexpr INSTRUCTIONS = "<-- NEXT\n--> PREV";
+static auto constexpr INSTRUCTIONS = "<- ->";
 
 static std::chrono::system_clock::time_point time_point_from_tm(std::tm const& date) {
   auto tmp_date = date;
@@ -35,7 +35,10 @@ namespace Pinetime::Applications::Screens {
   Schedule::Schedule(DisplayApp* app)
     : Screen {app},
       scroll_index {0},
-      sched_entry_label {::lv_label_create(lv_scr_act(), nullptr)},
+      entry_what_label {::lv_label_create(lv_scr_act(), nullptr)},
+      entry_where_label {::lv_label_create(lv_scr_act(), nullptr)},
+      entry_when_label {::lv_label_create(lv_scr_act(), nullptr)},
+      entry_length_label {::lv_label_create(lv_scr_act(), nullptr)},
       instructions_label {::lv_label_create(lv_scr_act(), nullptr)} {
 
     // Find first event that didn't conclude yet
@@ -53,9 +56,18 @@ namespace Pinetime::Applications::Screens {
       ++this->scroll_index;
     }
 
-    ::lv_obj_align(this->sched_entry_label, nullptr, ::LV_ALIGN_IN_TOP_LEFT, 0, 0);
-    ::lv_label_set_long_mode(this->sched_entry_label, ::LV_LABEL_LONG_BREAK);
-    ::lv_obj_set_width(this->sched_entry_label, LV_HOR_RES);
+    for (auto const& [label, mode] : {std::make_tuple(this->entry_what_label, ::LV_LABEL_LONG_BREAK),
+                                      std::make_tuple(this->entry_where_label, ::LV_LABEL_LONG_SROLL_CIRC)}) {
+      ::lv_label_set_long_mode(label, mode);
+      ::lv_obj_set_width(label, LV_HOR_RES);
+    }
+
+    auto y_offset = ::lv_coord_t {0};
+    for (auto const& label : {this->entry_when_label, this->entry_where_label, this->entry_length_label, this->entry_what_label}) {
+      ::lv_obj_align(label, nullptr, ::LV_ALIGN_IN_TOP_LEFT, 0, y_offset);
+      y_offset += 20;
+    }
+
     this->refreshText();
 
     ::lv_label_set_text_static(this->instructions_label, INSTRUCTIONS);
@@ -94,7 +106,9 @@ namespace Pinetime::Applications::Screens {
     auto const& entry = SCHEDULE.at(this->scroll_index);
     (void) std::strftime(formatted_date_buffer.data(), formatted_date_buffer.size(), "%d/%m %H:%M", &entry.when);
 
-    ::lv_label_set_text_fmt(
-      this->sched_entry_label, "%s\n%d minutes\n%s %s", formatted_date_buffer.data(), entry.length.count(), entry.what, entry.where);
+    ::lv_label_set_text(this->entry_what_label, entry.what);
+    ::lv_label_set_text(this->entry_when_label, formatted_date_buffer.data());
+    ::lv_label_set_text(this->entry_where_label, entry.where);
+    ::lv_label_set_text_fmt(this->entry_length_label, "%d minutes", entry.length.count());
   }
 }
