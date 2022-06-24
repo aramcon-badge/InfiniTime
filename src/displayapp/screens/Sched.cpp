@@ -19,61 +19,7 @@ struct Entry {
   std::chrono::minutes length;
 };
 
-static constexpr int year_for_tm(int year) {
-  return year - 1900;
-}
-
-static constexpr std::array<Entry, 4> SCHEDULE = {
-  // TODO: Fill with real entries
-  Entry {
-    "Planing",
-    "Bar",
-    std::tm {
-      .tm_min = 30,
-      .tm_hour = 10,
-      .tm_mday = 01,
-      .tm_mon = 01,
-      .tm_year = year_for_tm(2021),
-    },
-    60min,
-  },
-  Entry {
-    "Opening",
-    "Lobby",
-    std::tm {
-      .tm_min = 30,
-      .tm_hour = 10,
-      .tm_mday = 1,
-      .tm_mon = 8,
-      .tm_year = year_for_tm(2022),
-    },
-    60min,
-  },
-  Entry {
-    "Some lecture",
-    "Some room",
-    std::tm {
-      .tm_min = 45,
-      .tm_hour = 13,
-      .tm_mday = 1,
-      .tm_mon = 8,
-      .tm_year = year_for_tm(2022),
-    },
-    120min,
-  },
-  Entry {
-    "Ending",
-    "Lobby",
-    std::tm {
-      .tm_min = 30,
-      .tm_hour = 10,
-      .tm_mday = 3,
-      .tm_mon = 8,
-      .tm_year = year_for_tm(2022),
-    },
-    10min,
-  },
-};
+#include "schedule_events.hpp"
 
 // TODO: Set alarms for each entry
 
