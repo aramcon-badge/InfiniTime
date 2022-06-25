@@ -104,7 +104,7 @@ WatchFaceTerminal::WatchFaceTerminal(DisplayApp* app,
   aram_logo.header.cf = LV_IMG_CF_TRUE_COLOR;
   aram_logo.data = aram_logo_map;
 
-  // Setup aram icons
+  // Setup aram icon
   lv_obj_t *aram_icon = lv_img_create(lv_scr_act(), NULL);
   lv_img_set_src(aram_icon, &aram_logo);
   lv_obj_align(aram_icon, lv_scr_act(), LV_ALIGN_IN_BOTTOM_MID, 0, -9);

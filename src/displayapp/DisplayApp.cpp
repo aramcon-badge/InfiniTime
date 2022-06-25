@@ -488,7 +488,7 @@ void DisplayApp::LoadApp(Apps app, DisplayApp::FullRefreshDirections direction) 
       currentScreen = std::make_unique<Screens::Schedule>(this);
       break;
     case Apps::TheCrypt:
-      currentScreen = std::make_unique<Screens::TheCrypt>(this);
+      currentScreen = std::make_unique<Screens::TheCrypt>(this, dateTimeController);
       break;
   }
   currentApp = app;
