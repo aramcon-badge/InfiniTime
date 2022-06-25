@@ -18,15 +18,15 @@ ApplicationList::ApplicationList(Pinetime::Applications::DisplayApp* app,
     dateTimeController {dateTimeController},
     screens {app,
              settingsController.GetAppMenu(),
-             {
-               [this]() -> std::unique_ptr<Screen> {
-                 return CreateScreen1();
-               },
-               [this]() -> std::unique_ptr<Screen> {
-                 return CreateScreen2();
-               },
-               //[this]() -> std::unique_ptr<Screen> { return CreateScreen3(); }
-             },
+             {[this]() -> std::unique_ptr<Screen> {
+                return CreateScreen1();
+              },
+              [this]() -> std::unique_ptr<Screen> {
+                return CreateScreen2();
+              },
+              [this]() -> std::unique_ptr<Screen> {
+                return CreateScreen3();
+              }},
              Screens::ScreenListModes::UpDown} {
 }
 
@@ -40,8 +40,8 @@ bool ApplicationList::OnTouchEvent(Pinetime::Applications::TouchEvents event) {
 
 std::unique_ptr<Screen> ApplicationList::CreateScreen1() {
   std::array<Screens::Tile::Applications, 6> applications {{
+    {"Sched", Apps::Sched},
     {Symbols::stopWatch, Apps::StopWatch},
-    {Symbols::music, Apps::Music},
     {Symbols::map, Apps::Navigation},
     {Symbols::shoe, Apps::Steps},
     {Symbols::heartBeat, Apps::HeartRate},
@@ -53,9 +53,9 @@ std::unique_ptr<Screen> ApplicationList::CreateScreen1() {
 
 std::unique_ptr<Screen> ApplicationList::CreateScreen2() {
   std::array<Screens::Tile::Applications, 6> applications {{
+    {Symbols::music, Apps::Music},
     {Symbols::paintbrush, Apps::Paint},
     {Symbols::paddle, Apps::Paddle},
-    {"2", Apps::Twos},
     {Symbols::chartLine, Apps::Motion},
     {Symbols::drum, Apps::Metronome},
     {Symbols::clock, Apps::Alarm},
@@ -64,16 +64,9 @@ std::unique_ptr<Screen> ApplicationList::CreateScreen2() {
   return std::make_unique<Screens::Tile>(1, 2, app, settingsController, batteryController, dateTimeController, applications);
 }
 
-/*std::unique_ptr<Screen> ApplicationList::CreateScreen3() {
+std::unique_ptr<Screen> ApplicationList::CreateScreen3() {
   std::array<Screens::Tile::Applications, 6> applications {
-          {{"A", Apps::Meter},
-           {"B", Apps::Navigation},
-           {"C", Apps::Clock},
-           {"D", Apps::Music},
-           {"E", Apps::SysInfo},
-           {"F", Apps::Brightness}
-          }
+    {"2", Apps::Twos},
   };
-
   return std::make_unique<Screens::Tile>(2, 3, app, settingsController, batteryController, dateTimeController, applications);
-}*/
+}
