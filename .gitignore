@@ -49,4 +49,3 @@ src/nRF5_SDK_15.3.0_59ac345
 src/arm-none-eabi
 
 src/displayapp/screens/schedule_events.hpp
-src/displayapp/screens/invite.ics
