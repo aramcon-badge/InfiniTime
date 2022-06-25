@@ -32,21 +32,7 @@ Clock::Clock(DisplayApp* app,
     heartRateController {heartRateController},
     motionController {motionController},
     screen {[this, &settingsController]() {
-      switch (settingsController.GetClockFace()) {
-        case 0:
-          return WatchFaceDigitalScreen();
-          break;
-        case 1:
-          return WatchFaceAnalogScreen();
-          break;
-        case 2:
-          return PineTimeStyleScreen();
-          break;
-        case 3:
-          return WatchFaceTerminalScreen();
-          break;
-      }
-      return WatchFaceDigitalScreen();
+      return WatchFaceTerminalScreen();
     }()} {
   settingsController.SetAppMenu(0);
 }
