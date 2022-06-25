@@ -40,6 +40,7 @@ namespace Pinetime {
       SettingShakeThreshold,
       SettingBluetooth,
       Sched,
+      TheCrypt,
       Error
     };
   }
