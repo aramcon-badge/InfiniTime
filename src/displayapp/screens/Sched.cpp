@@ -19,7 +19,7 @@ struct Entry {
   std::chrono::minutes length;
 };
 
-#include "schedule_events.hpp"
+#include "schedule_events.h"
 
 // TODO: Set alarms for each entry
 
