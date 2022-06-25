@@ -3,7 +3,7 @@
 #include <chrono>
 
 #include "displayapp/TouchEvents.h"
-#include "displayapp/screens/Sched.hpp"
+#include "displayapp/screens/Sched.h"
 #include "displayapp/DisplayApp.h"
 #include "lvgl/src/lv_core/lv_disp.h"
 #include "lvgl/src/lv_core/lv_obj.h"
