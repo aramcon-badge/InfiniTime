@@ -13,3 +13,6 @@
 *.bin binary
 *.jpg binary
 *.jpeg binary
+
+# Declare files that will always have CRLF line endings on checkout.
+*.ics text eol=crlf
