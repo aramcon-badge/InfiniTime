@@ -41,6 +41,7 @@ namespace Pinetime {
       SettingBluetooth,
       Sched,
       TheCrypt,
+      ColorLight,
       Error
     };
   }

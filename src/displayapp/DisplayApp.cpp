@@ -33,6 +33,7 @@
 #include "displayapp/screens/Error.h"
 #include "displayapp/screens/Sched.h"
 #include "displayapp/screens/TheCrypt.h"
+#include "displayapp/screens/ColorLight.h"
 
 #include "drivers/Cst816s.h"
 #include "drivers/St7789.h"
@@ -489,6 +490,9 @@ void DisplayApp::LoadApp(Apps app, DisplayApp::FullRefreshDirections direction) 
       break;
     case Apps::TheCrypt:
       currentScreen = std::make_unique<Screens::TheCrypt>(this);
+      break;
+    case Apps::ColorLight:
+      currentScreen = std::make_unique<Screens::ColorLight>(this, *systemTask, brightnessController, dateTimeController);
       break;
   }
   currentApp = app;

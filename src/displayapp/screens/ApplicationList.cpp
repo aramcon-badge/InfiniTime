@@ -68,6 +68,7 @@ std::unique_ptr<Screen> ApplicationList::CreateScreen3() {
   std::array<Screens::Tile::Applications, 6> applications {{
     {"2", Apps::Twos},
     {Symbols::theCrypt, Apps::TheCrypt},
+    {"?", Apps::ColorLight},
   }};
   return std::make_unique<Screens::Tile>(2, 3, app, settingsController, batteryController, dateTimeController, applications);
 }

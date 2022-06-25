@@ -437,6 +437,7 @@ list(APPEND SOURCE_FILES
         displayapp/screens/Styles.cpp
         displayapp/screens/Sched.cpp
         displayapp/screens/TheCrypt.cpp
+        displayapp/screens/ColorLight.cpp
         displayapp/Colors.cpp
 
         ## Settings
@@ -617,8 +618,8 @@ list(APPEND RECOVERYLOADER_SOURCE_FILES
 
 add_custom_command(
   PRE_BUILD
-  OUTPUT src/displayapp/screens/schedule_events.hpp
-  COMMAND python3 src/displayapp/screens/ics_to_header.py src/displayapp/screens/invite.ics > src/displayapp/screens/schedule_events.hpp
+  OUTPUT src/displayapp/screens/schedule_events.h
+  COMMAND python3 src/displayapp/screens/ics_to_header.py src/displayapp/screens/invite.ics > src/displayapp/screens/schedule_events.h
   DEPENDS src/displayapp/screens/ics_to_header.py src/displayapp/screens/invite.ics
   COMMENT "Processing ICS file..."
 )
@@ -657,8 +658,9 @@ set(INCLUDE_FILES
         displayapp/screens/Timer.h
         displayapp/screens/Alarm.h
         displayapp/screens/Sched.h
-        displayapp/screens/schedule_events.hpp
+        displayapp/screens/schedule_events.h
         displayapp/screens/TheCrypt.h
+        displayapp/screens/ColorLight.h
         displayapp/Colors.h
         drivers/St7789.h
         drivers/SpiNorFlash.h
