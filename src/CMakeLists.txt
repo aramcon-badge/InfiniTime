@@ -436,6 +436,7 @@ list(APPEND SOURCE_FILES
         displayapp/screens/Alarm.cpp
         displayapp/screens/Styles.cpp
         displayapp/screens/Sched.cpp
+        displayapp/screens/TheCrypt.cpp
         displayapp/Colors.cpp
 
         ## Settings
@@ -655,8 +656,9 @@ set(INCLUDE_FILES
         displayapp/screens/Motion.h
         displayapp/screens/Timer.h
         displayapp/screens/Alarm.h
-        displayapp/screens/Sched.hpp
+        displayapp/screens/Sched.h
         displayapp/screens/schedule_events.hpp
+        displayapp/screens/TheCrypt.h
         displayapp/Colors.h
         drivers/St7789.h
         drivers/SpiNorFlash.h
