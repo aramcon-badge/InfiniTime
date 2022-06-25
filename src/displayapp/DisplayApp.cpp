@@ -32,8 +32,11 @@
 #include "displayapp/screens/PassKey.h"
 #include "displayapp/screens/Error.h"
 #include "displayapp/screens/Sched.h"
+<<<<<<< HEAD
 #include "displayapp/screens/TheCrypt.h"
 #include "displayapp/screens/ColorLight.h"
+=======
+>>>>>>> 3ed32c319613f1dba34c912159ac57c38d676388
 
 #include "drivers/Cst816s.h"
 #include "drivers/St7789.h"
