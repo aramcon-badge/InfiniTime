@@ -435,6 +435,7 @@ list(APPEND SOURCE_FILES
         displayapp/screens/Error.cpp
         displayapp/screens/Alarm.cpp
         displayapp/screens/Styles.cpp
+        displayapp/screens/Sched.cpp
         displayapp/Colors.cpp
 
         ## Settings
@@ -613,6 +614,13 @@ list(APPEND RECOVERYLOADER_SOURCE_FILES
         recoveryLoader.cpp
         )
 
+add_custom_command(
+  PRE_BUILD
+  OUTPUT src/displayapp/screens/schedule_events.hpp
+  COMMAND python3 src/displayapp/screens/ics_to_header.py src/displayapp/screens/invite.ics > src/displayapp/screens/schedule_events.hpp
+  DEPENDS src/displayapp/screens/ics_to_header.py src/displayapp/screens/invite.ics
+  COMMENT "Processing ICS file..."
+)
 
 set(INCLUDE_FILES
 
@@ -647,6 +655,8 @@ set(INCLUDE_FILES
         displayapp/screens/Motion.h
         displayapp/screens/Timer.h
         displayapp/screens/Alarm.h
+        displayapp/screens/Sched.hpp
+        displayapp/screens/schedule_events.hpp
         displayapp/Colors.h
         drivers/St7789.h
         drivers/SpiNorFlash.h
