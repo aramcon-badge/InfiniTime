@@ -8,7 +8,7 @@ static auto constexpr DEFAULT = "The Crypt Will\nOpen On The\nDay of Reckoning";
 static auto constexpr LAST_CREATION = "Arise, shine,\nfor your light \nhas come,\nand the glory\nof the Lord has\nrisen upon you.";
 static auto constexpr OBLIVION = "Wail, for the\nday of the\nLord is near;\nas destruction from\nthe Almighty it\nwill come!";
 
-static size_t quirigua_dimension = 64;
+static size_t quirigua_dimension = 32;
 static lv_img_dsc_t quirigua;
 
 
@@ -91,10 +91,6 @@ namespace Pinetime::Applications::Screens {
       auto month = static_cast<unsigned>(static_cast<unsigned>(yearMonthDay.month()));
       auto day = static_cast<unsigned>(yearMonthDay.day());
 
-      //lv_obj_t* sup = lv_label_create(lv_scr_act(), nullptr);
-      //lv_label_set_text_fmt(sup, "%d:%d:%d %d", year, month, day, unix_timestamp);
-      //lv_obj_align(sup, lv_scr_act(), LV_ALIGN_IN_BOTTOM_LEFT, 0, 0);
-
       if (year == 2012 && month == 12 && day == 21) {
         return 1;
       }
@@ -103,11 +99,11 @@ namespace Pinetime::Applications::Screens {
       four_ahau_eight_kumku.tm_hour += 1;
       hour_end = mktime(&four_ahau_eight_kumku);
 
-      //lv_obj_t* ahe = lv_label_create(lv_scr_act(), nullptr);
-      //lv_label_set_text_fmt(ahe, "%d-%d", hour_begin, hour_end);
-      //lv_obj_align(ahe, lv_scr_act(), LV_ALIGN_IN_TOP_LEFT, 0, 0);
-
-      return (hour_begin <= unix_timestamp && unix_timestamp <= hour_end) ? 0 : 2;
+      if (hour_begin <= unix_timestamp && unix_timestamp <= hour_end) {
+        Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
+        ctfController->addSolve(4);
+        return 0;
+      }
     }
     return 2;
   }

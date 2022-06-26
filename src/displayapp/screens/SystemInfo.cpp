@@ -61,6 +61,9 @@ SystemInfo::SystemInfo(Pinetime::Applications::DisplayApp* app,
               },
               [this]() -> std::unique_ptr<Screen> {
                 return CreateScreen5();
+              },
+              [this]() -> std::unique_ptr<Screen> {
+                return CreateScreen6();
               }},
              Screens::ScreenListModes::UpDown} {
 }
@@ -93,7 +96,7 @@ std::unique_ptr<Screen> SystemInfo::CreateScreen1() {
                         BootloaderVersion::VersionString());
   lv_label_set_align(label, LV_LABEL_ALIGN_CENTER);
   lv_obj_align(label, lv_scr_act(), LV_ALIGN_CENTER, 0, 0);
-  return std::make_unique<Screens::Label>(0, 5, app, label);
+  return std::make_unique<Screens::Label>(0, 6, app, label);
 }
 
 std::unique_ptr<Screen> SystemInfo::CreateScreen2() {
@@ -166,7 +169,7 @@ std::unique_ptr<Screen> SystemInfo::CreateScreen2() {
                         touchPanel.GetVendorId(),
                         touchPanel.GetFwVersion());
   lv_obj_align(label, lv_scr_act(), LV_ALIGN_CENTER, 0, 0);
-  return std::make_unique<Screens::Label>(1, 5, app, label);
+  return std::make_unique<Screens::Label>(1, 6, app, label);
 }
 
 std::unique_ptr<Screen> SystemInfo::CreateScreen3() {
@@ -197,7 +200,7 @@ std::unique_ptr<Screen> SystemInfo::CreateScreen3() {
                         mon.frag_pct,
                         static_cast<int>(mon.free_biggest_size));
   lv_obj_align(label, lv_scr_act(), LV_ALIGN_CENTER, 0, 0);
-  return std::make_unique<Screens::Label>(2, 5, app, label);
+  return std::make_unique<Screens::Label>(2, 6, app, label);
 }
 
 bool SystemInfo::sortById(const TaskStatus_t& lhs, const TaskStatus_t& rhs) {
@@ -258,7 +261,7 @@ std::unique_ptr<Screen> SystemInfo::CreateScreen4() {
     }
     lv_table_set_cell_value(infoTask, i + 1, 3, buffer);
   }
-  return std::make_unique<Screens::Label>(3, 5, app, infoTask);
+  return std::make_unique<Screens::Label>(3, 6, app, infoTask);
 }
 
 std::unique_ptr<Screen> SystemInfo::CreateScreen5() {
@@ -275,5 +278,26 @@ std::unique_ptr<Screen> SystemInfo::CreateScreen5() {
                            "#FFFF00 InfiniTime#");
   lv_label_set_align(label, LV_LABEL_ALIGN_CENTER);
   lv_obj_align(label, lv_scr_act(), LV_ALIGN_CENTER, 0, 0);
-  return std::make_unique<Screens::Label>(4, 5, app, label);
+  return std::make_unique<Screens::Label>(4, 6, app, label);
+}
+
+std::unique_ptr<Screen> SystemInfo::CreateScreen6() {
+  lv_obj_t* label = lv_label_create(lv_scr_act(), nullptr);
+  lv_label_set_recolor(label, true);
+  lv_label_set_text_static(label,
+                           "#30c803 Made with Blood#\n"
+                           "#30c803 and C++ by#\n"
+                           "#30c803 Aramniks from#\n"
+                           "#30c803 0x{0:X2}#\n"
+                           "#444444 Source code#\n"
+                           "#FFFF00 https://github.com/#\n"
+                           "#FFFF00 aramcon-badge/#\n"
+                           "#FFFF00 InfiniTime#");
+  lv_label_set_align(label, LV_LABEL_ALIGN_CENTER);
+  lv_obj_align(label, lv_scr_act(), LV_ALIGN_CENTER, 0, 0);
+
+  Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
+  ctfController->addSolve(0);
+
+  return std::make_unique<Screens::Label>(5, 6, app, label);
 }

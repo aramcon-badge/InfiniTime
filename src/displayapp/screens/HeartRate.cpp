@@ -6,15 +6,8 @@
 
 using namespace Pinetime::Applications::Screens;
 
-bool ctf_solved = false;
-
 namespace {
   const char* ToString(Pinetime::Controllers::HeartRateController::States s) {
-
-    if (ctf_solved)
-    {
-      return "FLAG: XX/XX/XX"; // TODO: update with flag from the system
-    }
 
     switch (s) {
       case Pinetime::Controllers::HeartRateController::States::NotEnoughData:
@@ -95,7 +88,8 @@ void HeartRate::Refresh() {
       const uint32_t hr = heartRateController.HeartRate();
       if (hr >= 137)
       {
-         ctf_solved = true;
+        Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
+        ctfController->addSolve(1);
       }
       lv_label_set_text_fmt(label_hr, "%03d", hr);
   }

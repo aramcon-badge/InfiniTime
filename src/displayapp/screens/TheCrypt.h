@@ -10,6 +10,7 @@
 #include "displayapp/screens/TheCryptImage.h"
 #include <lvgl/lvgl.h>
 #include "components/datetime/DateTimeController.h"
+#include "components/ctf/CtfController.h"
 
 namespace Pinetime {
   namespace Applications {
