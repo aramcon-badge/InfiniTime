@@ -660,10 +660,7 @@ set(INCLUDE_FILES
         displayapp/screens/Sched.h
         displayapp/screens/schedule_events.h
         displayapp/screens/TheCrypt.h
-<<<<<<< HEAD
         displayapp/screens/ColorLight.h
-=======
->>>>>>> feature/ctf_challenge_the_crypt
         displayapp/Colors.h
         drivers/St7789.h
         drivers/SpiNorFlash.h
