@@ -504,6 +504,8 @@ list(APPEND SOURCE_FILES
         components/timer/TimerController.cpp
         components/alarm/AlarmController.cpp
         components/fs/FS.cpp
+        components/ctf/CtfController.cpp
+        components/ctf/CtfController.h
         drivers/Cst816s.cpp
         FreeRTOS/port.c
         FreeRTOS/port_cmsis_systick.c
