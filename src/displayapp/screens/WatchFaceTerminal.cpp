@@ -1,5 +1,6 @@
 #include <date/date.h>
 #include <lvgl/lvgl.h>
+#include <nrf_log.h>
 #include "displayapp/screens/WatchFaceTerminal.h"
 #include "displayapp/screens/BatteryIcon.h"
 #include "displayapp/screens/NotificationIcon.h"
@@ -10,6 +11,7 @@
 #include "components/heartrate/HeartRateController.h"
 #include "components/motion/MotionController.h"
 #include "components/settings/Settings.h"
+#include "components/ctf/CtfController.h"
 #include "WatchFaceTerminalLogo.h"
 
 using namespace Pinetime::Applications::Screens;
@@ -57,7 +59,6 @@ WatchFaceTerminal::WatchFaceTerminal(DisplayApp* app,
   label_ctf = lv_label_create(lv_scr_act(), nullptr);
   lv_label_set_recolor(label_ctf, true);
   lv_obj_align(label_ctf, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, 60);
-  lv_label_set_text_static(label_ctf, "[LVL ] #00FF00 .....");
 
   label_time = lv_label_create(lv_scr_act(), nullptr);
   lv_label_set_recolor(label_time, true);
@@ -244,4 +245,15 @@ void WatchFaceTerminal::Refresh() {
   if (stepCount.IsUpdated() || motionSensorOk.IsUpdated()) {
     lv_label_set_text_fmt(stepValue, "[STEP] #004000 %lu steps#", stepCount.Get());
   }
+
+  Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
+
+  char ctf_solved[ctfController->getNumOfLevels() + 1] = {0};
+  ctfController->getSolved((char*)&ctf_solved);
+
+
+  NRF_LOG_INFO("flags:  %s", ctf_solved);
+
+  lv_label_set_text_fmt(label_ctf, 
+                          "[LVL ] #00FF00 %s#", ctf_solved);
 }
