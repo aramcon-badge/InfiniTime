@@ -4,7 +4,7 @@
 #include <nrf_log.h>
 #include "displayapp/DisplayApp.h"
 #include "displayapp/screens/Symbols.h"
-#include "abadge/Ctf.h"
+#include "components/ctf/CtfController.h"
 
 using namespace Pinetime::Applications::Screens;
 
@@ -26,7 +26,6 @@ SettingSetDate::SettingSetDate(Pinetime::Applications::DisplayApp *app, Pinetime
   Screen(app),
   dateTimeController {dateTimeController} {
   lv_obj_t * title = lv_label_create(lv_scr_act(), nullptr);
-  lv_label_set_text_static(title, "CTF flag?");
   lv_label_set_align(title, LV_LABEL_ALIGN_CENTER);
   lv_obj_align(title, lv_scr_act(), LV_ALIGN_IN_TOP_MID, 15, 15);
 
@@ -166,7 +165,10 @@ void SettingSetDate::HandleButtonPress(lv_obj_t *object, lv_event_t event) {
                                nrf_rtc_counter_get(portNRF_RTC_REG));
     lv_btn_set_state(btnSetTime, LV_BTN_STATE_DISABLED);
 
-    CTF::ctf_input(yearValue, monthValue, dayValue);
+    if (yearValue == 2022 && monthValue == 2 && dayValue == 2) {
+      Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
+      ctfController->addSolve(0);
+    }
   }
 }
 

@@ -11,8 +11,8 @@
 #include "components/heartrate/HeartRateController.h"
 #include "components/motion/MotionController.h"
 #include "components/settings/Settings.h"
+#include "components/ctf/CtfController.h"
 #include "WatchFaceTerminalLogo.h"
-#include "abadge/Ctf.h"
 
 using namespace Pinetime::Applications::Screens;
 
@@ -246,22 +246,14 @@ void WatchFaceTerminal::Refresh() {
     lv_label_set_text_fmt(stepValue, "[STEP] #004000 %lu steps#", stepCount.Get());
   }
 
-  char ctf_solved[CTF::NUM_OF_CTF_LVLS] = {0};
-  CTF::get_solved((char*)&ctf_solved);
+  Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
+
+  char ctf_solved[ctfController->getNumOfLevels() + 1] = {0};
+  ctfController->getSolved((char*)&ctf_solved);
 
 
-  NRF_LOG_INFO("flags:  %c%c%c%c%c", 
-                          ctf_solved[0],
-                          ctf_solved[1],
-                          ctf_solved[2],
-                          ctf_solved[3],
-                          ctf_solved[4]);
+  NRF_LOG_INFO("flags:  %s", ctf_solved);
 
   lv_label_set_text_fmt(label_ctf, 
-                          "[LVL ] #00FF00 %c%c%c%c%c#", 
-                          ctf_solved[0],
-                          ctf_solved[1],
-                          ctf_solved[2],
-                          ctf_solved[3],
-                          ctf_solved[4]);
+                          "[LVL ] #00FF00 %s#", ctf_solved);
 }
