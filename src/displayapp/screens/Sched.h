@@ -4,6 +4,7 @@
 #include "lvgl/src/lv_core/lv_obj.h"
 #include <lvgl/lvgl.h>
 #include <memory>
+#include "components/ctf/CtfController.h"
 
 namespace Pinetime::Applications::Screens {
   class Schedule : public Screen {
