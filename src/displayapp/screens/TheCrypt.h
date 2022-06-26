@@ -1,15 +1,33 @@
 #pragma once
 
+#include <iostream>
+#include <ctime>
+#include <string>
+#include <iomanip>
+#include <sstream>
+
 #include "displayapp/screens/Screen.h"
+#include "displayapp/screens/TheCryptImage.h"
 #include <lvgl/lvgl.h>
+#include "components/datetime/DateTimeController.h"
 
 namespace Pinetime {
   namespace Applications {
     namespace Screens {
       class TheCrypt : public Screen {
       public:
+<<<<<<< HEAD
         TheCrypt(DisplayApp* app);
         ~TheCrypt() override;
+=======
+        explicit TheCrypt(DisplayApp* app, Controllers::DateTime& dateTimeController);
+        ~TheCrypt() override;
+
+      private:
+        DirtyValue<std::chrono::time_point<std::chrono::system_clock, std::chrono::nanoseconds>> currentDateTime {};
+        int timePointToTimestamp(std::chrono::system_clock::time_point& tp );
+        int checkDate(Controllers::DateTime& dateTimeController);
+>>>>>>> 8ab8dc3608e4c0116aecc08db9be6b14a274b7ce
       };
     }
   }
