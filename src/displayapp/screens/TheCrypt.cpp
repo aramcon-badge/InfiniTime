@@ -58,7 +58,6 @@ namespace Pinetime::Applications::Screens {
 
   int TheCrypt::timePointToTimestamp(std::chrono::system_clock::time_point& tp ) {
       using namespace date;
-      std::chrono::system_clock::time_point today = tp;
 
       sys_days unix_epoch = day(1)/jan/1970;
       days days_since_epoch = floor<days>(tp) - unix_epoch;
@@ -84,7 +83,6 @@ namespace Pinetime::Applications::Screens {
       auto newDateTime = currentDateTime.Get();
 
       auto dp = date::floor<date::days>(newDateTime);
-      auto time = date::make_time(newDateTime - dp);
       auto yearMonthDay = date::year_month_day(dp);
 
       unix_timestamp = timePointToTimestamp(newDateTime);
