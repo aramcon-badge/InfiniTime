@@ -2,6 +2,8 @@
 
 using namespace Pinetime::Controllers;
 
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+
 Ctf::Ctf() : solved {0} {
     memset(solved, '.', NUM_OF_CTF_LVLS);
 }
@@ -17,7 +19,7 @@ int Ctf::getNumOfLevels() {
 
 void Ctf::getSolved(char* out_arr) {
 
-    memcpy(out_arr, solved, std::min(static_cast<unsigned long int>(getNumOfLevels()), sizeof(out_arr)));
+    memcpy(out_arr, solved, MIN(static_cast<unsigned long int>(getNumOfLevels()), sizeof(out_arr)));
 }
 
 void Ctf::addSolve(int index) {

@@ -504,6 +504,8 @@ list(APPEND SOURCE_FILES
         components/timer/TimerController.cpp
         components/alarm/AlarmController.cpp
         components/fs/FS.cpp
+        components/ctf/CtfController.cpp
+        components/ctf/CtfController.h
         drivers/Cst816s.cpp
         FreeRTOS/port.c
         FreeRTOS/port_cmsis_systick.c
@@ -660,10 +662,7 @@ set(INCLUDE_FILES
         displayapp/screens/Sched.h
         displayapp/screens/schedule_events.h
         displayapp/screens/TheCrypt.h
-<<<<<<< HEAD
         displayapp/screens/ColorLight.h
-=======
->>>>>>> feature/ctf_challenge_the_crypt
         displayapp/Colors.h
         drivers/St7789.h
         drivers/SpiNorFlash.h
