@@ -44,11 +44,8 @@ namespace Pinetime {
         static constexpr const char* chartLine = "\xEF\x88\x81";
         static constexpr const char* eye = "\xEF\x81\xAE";
         static constexpr const char* home = "\xEF\x80\x95";
-<<<<<<< HEAD
         static constexpr const char* calendar = "\xEF\x81\xB3";
         static constexpr const char* theCrypt = "\xEF\x99\x95";
-=======
->>>>>>> 3ed32c319613f1dba34c912159ac57c38d676388
 
         // lv_font_sys_48.c
         static constexpr const char* settings = "\xEE\xA4\x82"; // e902

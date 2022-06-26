@@ -1,6 +1,7 @@
 #include "displayapp/screens/ColorLight.h"
 #include "displayapp/DisplayApp.h"
 #include "displayapp/screens/Symbols.h"
+#include "components/ble/BleController.h"
 #include <cstdlib>
 #include <nrf_log.h>
 
@@ -10,11 +11,11 @@ using namespace Pinetime::Applications::Screens;
 ColorLight::ColorLight(Pinetime::Applications::DisplayApp* app,
                        System::SystemTask& systemTask,
                        Controllers::BrightnessController& brightnessController,
-                       Controllers::DateTime& dateTimeController)
+                       Controllers::Ble& bleController)
   : Screen(app),
     systemTask {systemTask},
-    brightnessController {brightnessController}
-
+    brightnessController {brightnessController},
+    bleController {bleController}
 {
   brightnessController.Backup();
 
@@ -48,8 +49,16 @@ void ColorLight::SetColors() {
       LV_COLOR_ORANGE ,
     };
 
+    auto& bleAddr = bleController.Address();
+
+    uint32_t ble_sum = 0;
+    for (uint32_t i=0; i<6;i ++)
+    {
+      ble_sum += bleAddr[i];
+    }
+
     lv_obj_set_style_local_bg_color(lv_scr_act(), 
                                     LV_OBJ_PART_MAIN, LV_STATE_DEFAULT, 
-                                    colors[rand() % 8]);
+                                    colors[ble_sum % 8]);
 }
 

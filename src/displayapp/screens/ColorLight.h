@@ -2,7 +2,7 @@
 
 #include "displayapp/screens/Screen.h"
 #include "components/brightness/BrightnessController.h"
-#include "components/datetime/DateTimeController.h"
+#include "components/ble/BleController.h"
 #include "systemtask/SystemTask.h"
 #include <cstdint>
 #include <lvgl/lvgl.h>
@@ -15,7 +15,7 @@ namespace Pinetime {
       class ColorLight : public Screen {
       public:
         ColorLight(DisplayApp* app, System::SystemTask& systemTask, Controllers::BrightnessController& brightness,
-                   Controllers::DateTime& dateTimeController);
+                   Controllers::Ble& bleController);
         ~ColorLight() override;
 
       private:
@@ -23,6 +23,7 @@ namespace Pinetime {
 
         Pinetime::System::SystemTask& systemTask;
         Controllers::BrightnessController& brightnessController;
+        Controllers::Ble& bleController;
 
         Controllers::BrightnessController::Levels brightnessLevel;
       };
