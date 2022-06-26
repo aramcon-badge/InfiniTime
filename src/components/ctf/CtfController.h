@@ -10,7 +10,7 @@ namespace Pinetime::Controllers {
             Ctf();
 
             static Ctf* instance;
-            static const unsigned int NUM_OF_CTF_LVLS = 3;
+            static const unsigned int NUM_OF_CTF_LVLS = 5;
             char solved[Ctf::NUM_OF_CTF_LVLS];
 
         public:

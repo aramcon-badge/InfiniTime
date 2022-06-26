@@ -4,7 +4,6 @@
 #include <nrf_log.h>
 #include "displayapp/DisplayApp.h"
 #include "displayapp/screens/Symbols.h"
-#include "components/ctf/CtfController.h"
 
 using namespace Pinetime::Applications::Screens;
 
@@ -164,11 +163,6 @@ void SettingSetDate::HandleButtonPress(lv_obj_t *object, lv_event_t event) {
                                dateTimeController.Seconds(),
                                nrf_rtc_counter_get(portNRF_RTC_REG));
     lv_btn_set_state(btnSetTime, LV_BTN_STATE_DISABLED);
-
-    if (yearValue == 2022 && monthValue == 2 && dayValue == 2) {
-      Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
-      ctfController->addSolve(0);
-    }
   }
 }
 
