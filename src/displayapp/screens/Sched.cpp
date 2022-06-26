@@ -73,6 +73,9 @@ namespace Pinetime::Applications::Screens {
     ::lv_label_set_text_static(this->instructions_label, INSTRUCTIONS);
     ::lv_obj_align(this->instructions_label, nullptr, ::LV_ALIGN_IN_BOTTOM_LEFT, 0, 0);
     ::lv_obj_set_width(this->instructions_label, LV_HOR_RES);
+
+    Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
+    ctfController->addSolve(2);
   }
 
   Schedule::~Schedule() {

@@ -83,7 +83,7 @@ void Paddle::Refresh() {
 
   if (score == party_threshold) {
     Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
-    ctfController->addSolve(2);
+    ctfController->addSolve(3);
     party_mode = true;
   }
 }
