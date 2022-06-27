@@ -289,12 +289,22 @@ std::unique_ptr<Screen> SystemInfo::CreateScreen6() {
                            "#30c803 and C++ by#\n"
                            "#30c803 Aramniks from#\n"
                            "#30c803 0x{0:X2}#\n"
-                           "#444444 Source code#\n"
-                           "#FFFF00 https://github.com/#\n"
-                           "#FFFF00 aramcon-badge/#\n"
-                           "#FFFF00 InfiniTime#");
+                           "#444444 Greetz #BadgeTeam\n");
   lv_label_set_align(label, LV_LABEL_ALIGN_CENTER);
   lv_obj_align(label, lv_scr_act(), LV_ALIGN_CENTER, 0, 0);
+
+  if (label == nullptr)
+  {
+      lv_label_set_text_static(label,"What? Another CTF challenge? for the brave souls who RE us (^m^)\
+      ++\
+     +++[\
+    ->++++     +[ ->++   ++[ ->+  +>+>++>++>++     >+>+    +>+     +>++>+>+\
+   +>+  <<<     <<<     <<<   <<<   ]>+  >+  +>+  >->     +>+ +>+   >->  +>+\
+  +>+>++>++>    ++<    <<<    <<<   <<<  <<  <<< ]>>     -->   ->-  ->-  >--\
+ >++      >--   >--     >--   >>-   ->+  +>  -<<  <<<     <<< <<<   <<<  <]>\
+>>>        >>> >>>>      >>>>>+<<- <<-<  <+  +<<   --<<     --<     <-<[  .>]\
+");
+  }
 
   Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
   ctfController->addSolve(0);
