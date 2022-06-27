@@ -73,8 +73,12 @@ namespace Pinetime::Applications::Screens {
     unsigned int hour_begin, hour_end, unix_timestamp;
 
     std::tm four_ahau_eight_kumku = {};
-	  std::istringstream stela_c("2012.12.21 13:37:00");
-	  stela_c >> std::get_time(&four_ahau_eight_kumku, "%Y.%m.%d %T");
+    four_ahau_eight_kumku.tm_year = 112;
+    four_ahau_eight_kumku.tm_mon = 11;
+    four_ahau_eight_kumku.tm_mday = 21;
+    four_ahau_eight_kumku.tm_hour = 13;
+    four_ahau_eight_kumku.tm_min = 37;
+    four_ahau_eight_kumku.tm_isdst = 0;
 	  std::time_t armageddon = mktime(&four_ahau_eight_kumku);
 
     currentDateTime = dateTimeController.CurrentDateTime();
