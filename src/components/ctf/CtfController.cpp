@@ -23,7 +23,11 @@ void Ctf::getSolved(char* out_arr) {
 }
 
 void Ctf::addSolve(int index) {
-    if (index >= 0 && index < getNumOfLevels()) {
+    if (index >= 0 && index < getNumOfLevels() && solved[index] != 'F') {
         solved[index] = 'F';
     }
+}
+
+bool Ctf::checkSolve(int index) {
+    return index >= 0 && index < getNumOfLevels() && solved[index] == 'F';
 }

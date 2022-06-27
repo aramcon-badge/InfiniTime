@@ -10,6 +10,7 @@ namespace Pinetime::Controllers {
             Ctf();
 
             static Ctf* instance;
+            static auto constexpr FLAG_RECV_MSG = "FLAG %d RECV";
             static const unsigned int NUM_OF_CTF_LVLS = 5;
             char solved[Ctf::NUM_OF_CTF_LVLS];
 
@@ -21,7 +22,6 @@ namespace Pinetime::Controllers {
             int getNumOfLevels();
             void getSolved(char* out_arr);
             void addSolve(int index);
-
-            
+            bool checkSolve(int index);
     };
 }

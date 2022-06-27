@@ -297,7 +297,14 @@ std::unique_ptr<Screen> SystemInfo::CreateScreen6() {
   lv_obj_align(label, lv_scr_act(), LV_ALIGN_CENTER, 0, 0);
 
   Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
-  ctfController->addSolve(0);
+  if (!ctfController->checkSolve(0)) {
+      ctfController->addSolve(0);
+
+      lv_obj_t* ctf_flag_solved_label = lv_label_create(lv_scr_act(), nullptr);
+      lv_label_set_recolor(ctf_flag_solved_label, true);
+      lv_label_set_text_static(ctf_flag_solved_label, "#30c803 GOT FLAG#");
+      lv_obj_align(ctf_flag_solved_label, nullptr, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
+    }
 
   return std::make_unique<Screens::Label>(5, 6, app, label);
 }
