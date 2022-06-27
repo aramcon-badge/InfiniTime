@@ -76,8 +76,8 @@ namespace Pinetime::Applications::Screens {
 
 
     Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
-    if (!ctfController->checkSolve(2)) {
-      ctfController->addSolve(2);
+    if (!ctfController->checkSolve(1)) {
+      ctfController->addSolve(1);
 
       ::lv_obj_t* ctf_flag_solved_label = lv_label_create(lv_scr_act(), nullptr);
       ::lv_label_set_recolor(ctf_flag_solved_label, true);
