@@ -19,7 +19,7 @@ int Ctf::getNumOfLevels() {
 
 void Ctf::getSolved(char* out_arr) {
 
-    memcpy(out_arr, solved, MIN(static_cast<unsigned long int>(getNumOfLevels()), sizeof(out_arr)));
+    memcpy(out_arr, solved, MIN(getNumOfLevels(), sizeof(out_arr)));
 }
 
 void Ctf::addSolve(int index) {
