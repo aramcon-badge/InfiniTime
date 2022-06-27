@@ -8,7 +8,7 @@ static auto constexpr DEFAULT = "The Crypt Will\nOpen On The\nDay of Reckoning";
 static auto constexpr LAST_CREATION = "Arise, shine,\nfor your light \nhas come,\nand the glory\nof the Lord has\nrisen upon you.";
 static auto constexpr OBLIVION = "Wail, for the\nday of the\nLord is near;\nas destruction from\nthe Almighty it\nwill come!";
 
-static size_t quirigua_dimension = 32;
+static size_t quirigua_dimension = 64;
 static lv_img_dsc_t quirigua;
 
 
