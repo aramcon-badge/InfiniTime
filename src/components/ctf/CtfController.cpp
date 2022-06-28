@@ -4,8 +4,7 @@ using namespace Pinetime::Controllers;
 
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
-Ctf::Ctf() : solved {0} {
-    memset(solved, '.', NUM_OF_CTF_LVLS);
+Ctf::Ctf() : solved {std::string(NUM_OF_CTF_LVLS, '.')} {
 }
 
 Ctf* Ctf::getInstance() {
@@ -17,9 +16,9 @@ int Ctf::getNumOfLevels() {
     return NUM_OF_CTF_LVLS;
 }
 
-void Ctf::getSolved(char* out_arr) {
+void Ctf::getSolved(std::string& out_str) {
 
-    memcpy(out_arr, solved, MIN(getNumOfLevels(), sizeof(out_arr)));
+    out_str = solved;
 }
 
 void Ctf::addSolve(int index) {
