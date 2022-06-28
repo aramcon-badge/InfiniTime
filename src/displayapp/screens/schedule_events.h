@@ -1,4 +1,3 @@
-
 #pragma message("[!] This is a default schedule to avoid build errors - GENERATE FROM REAL ICS") 
 
 static std::array<Entry, 4> constexpr SCHEDULE = {

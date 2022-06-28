@@ -71,13 +71,11 @@ WatchFaceTerminal::WatchFaceTerminal(DisplayApp* app,
   aram_logo.header.cf = LV_IMG_CF_TRUE_COLOR;
   aram_logo.data = logo_map;
 
-  if (settingsController.GetClockFace() == 0)
-  {
-    // Setup icons
-    lv_obj_t *aram_icon = lv_img_create(lv_scr_act(), NULL);
-    lv_img_set_src(aram_icon, &aram_logo);
-    lv_obj_align(aram_icon, lv_scr_act(), LV_ALIGN_IN_BOTTOM_MID, 0, -9);
-  }
+  // Setup icons
+  lv_obj_t *aram_icon = lv_img_create(lv_scr_act(), NULL);
+  lv_img_set_src(aram_icon, &aram_logo);
+  lv_obj_align(aram_icon, lv_scr_act(), LV_ALIGN_IN_BOTTOM_MID, 0, -9);
+
 
   backgroundLabel = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_click(backgroundLabel, true);

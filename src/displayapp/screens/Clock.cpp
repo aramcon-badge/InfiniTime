@@ -12,6 +12,7 @@
 #include "displayapp/screens/WatchFaceTerminal.h"
 #include "displayapp/screens/WatchFaceAnalog.h"
 #include "displayapp/screens/PineTimeStyle.h"
+#include "displayapp/screens/WatchFaceUnix.h"
 
 using namespace Pinetime::Applications::Screens;
 
@@ -32,7 +33,24 @@ Clock::Clock(DisplayApp* app,
     heartRateController {heartRateController},
     motionController {motionController},
     screen {[this, &settingsController]() {
-      return WatchFaceTerminalScreen();
+      switch (settingsController.GetClockFace()) {
+        case 0:
+          return WatchFaceDigitalScreen();
+          break;
+        case 1:
+          return WatchFaceAnalogScreen();
+          break;
+        case 2:
+          return PineTimeStyleScreen();
+          break;
+        case 3:
+          return WatchFaceTerminalScreen();
+          break;
+        case 4:
+          return WatchFaceUnixScreen();
+          break;
+      }
+      return WatchFaceDigitalScreen();
     }()} {
   settingsController.SetAppMenu(0);
 }
@@ -72,6 +90,17 @@ std::unique_ptr<Screen> Clock::PineTimeStyleScreen() {
 
 std::unique_ptr<Screen> Clock::WatchFaceTerminalScreen() {
   return std::make_unique<Screens::WatchFaceTerminal>(app,
+                                                      dateTimeController,
+                                                      batteryController,
+                                                      bleController,
+                                                      notificatioManager,
+                                                      settingsController,
+                                                      heartRateController,
+                                                      motionController);
+}
+
+std::unique_ptr<Screen> Clock::WatchFaceUnixScreen() {
+  return std::make_unique<Screens::WatchFaceUnix>(app,
                                                       dateTimeController,
                                                       batteryController,
                                                       bleController,
