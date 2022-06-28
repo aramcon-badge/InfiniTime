@@ -255,5 +255,5 @@ void WatchFaceTerminal::Refresh() {
   NRF_LOG_INFO("flags:  %s", ctf_solved);
 
   lv_label_set_text_fmt(label_ctf, 
-                          "[LVL ] #00FF00 %s#", ctf_solved);
+                          "[LVL ] #00FF00 %s TEST TEST TEST#", ctf_solved);
 }
