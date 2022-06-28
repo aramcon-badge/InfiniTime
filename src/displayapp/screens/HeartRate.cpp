@@ -18,7 +18,7 @@ namespace {
         return "Measuring...";
       case Pinetime::Controllers::HeartRateController::States::Stopped:
         Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
-        return ctfController->checkSolve(1) ? "Stopped" : "Stopped, CTF? 137";
+        return ctfController->checkSolve(2) ? "Stopped" : "Stopped, CTF? 137";
     }
     return "";
   }
