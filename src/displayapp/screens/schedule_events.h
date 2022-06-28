@@ -9,5 +9,6 @@ static std::array<Entry, 1> constexpr SCHEDULE = {
 			.tm_mon= 6,
 			.tm_year= 122,
 		},
-		.length = 100min,
+		.length = 100min
+	}
 };
