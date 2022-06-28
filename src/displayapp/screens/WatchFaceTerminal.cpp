@@ -251,9 +251,6 @@ void WatchFaceTerminal::Refresh() {
   char ctf_solved[ctfController->getNumOfLevels() + 1] = {0};
   ctfController->getSolved((char*)&ctf_solved);
 
-
-  NRF_LOG_INFO("flags:  %s", ctf_solved);
-
   lv_label_set_text_fmt(label_ctf, 
-                          "[LVL ] #00FF00 %s TEST TEST TEST#", ctf_solved);
+                          "[LVL ] #00FF00 TEST TEST TEST#");
 }
