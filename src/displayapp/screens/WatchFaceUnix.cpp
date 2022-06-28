@@ -56,7 +56,7 @@ WatchFaceUnix::WatchFaceUnix(DisplayApp* app,
   lv_obj_align(notificationIcon, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 0);
 
   label_date = lv_label_create(lv_scr_act(), nullptr);
-  lv_obj_align(label_date, lv_scr_act(), LV_ALIGN_IN_BOTTOM_MID, 0, 0);
+  lv_obj_align(label_date, lv_scr_act(), LV_ALIGN_IN_BOTTOM_MID, 0, -22);
   lv_obj_set_style_local_text_color(label_date, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_color_hex(0x30c803));
 
   aram_logo.header.always_zero = 0; // Initialization
@@ -76,7 +76,7 @@ WatchFaceUnix::WatchFaceUnix(DisplayApp* app,
   lv_obj_align(label_time, lv_scr_act(), LV_ALIGN_IN_RIGHT_MID, 0, 0);
 
   label_aram = lv_label_create(lv_scr_act(), nullptr);
-  lv_obj_align(label_aram, lv_scr_act(), LV_ALIGN_IN_BOTTOM_MID, 0, -42);
+  lv_obj_align(label_aram, lv_scr_act(), LV_ALIGN_IN_BOTTOM_MID, 0, -52);
   lv_obj_set_style_local_text_color(label_aram, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_color_hex(0x999999));
   lv_label_set_text(label_aram, "ARAM");
 
