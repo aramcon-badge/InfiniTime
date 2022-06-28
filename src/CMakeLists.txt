@@ -460,6 +460,7 @@ list(APPEND SOURCE_FILES
         displayapp/screens/WatchFaceDigital.cpp
         displayapp/screens/WatchFaceTerminal.cpp
         displayapp/screens/PineTimeStyle.cpp
+        displayapp/screens/WatchFaceUnix.cpp
 
         ##
 
