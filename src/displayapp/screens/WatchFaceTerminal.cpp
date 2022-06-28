@@ -246,12 +246,8 @@ void WatchFaceTerminal::Refresh() {
 
   Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
 
-  char ctf_solved[ctfController->getNumOfLevels() + 1] = {0};
-  ctfController->getSolved((char*)&ctf_solved);
+  std::string ctf_solved;
+  ctfController->getSolved(ctf_solved);
 
-
-  NRF_LOG_INFO("flags:  %s", ctf_solved);
-
-  lv_label_set_text_fmt(label_ctf, 
-                          "[LVL ] #00FF00 %s#", ctf_solved);
+  lv_label_set_text_fmt(label_ctf, "[LVL ] #00FF00 %s#", ctf_solved.c_str());
 }

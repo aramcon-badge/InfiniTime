@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstring>
+#include <string>
 #include <algorithm>
 
 
@@ -11,7 +12,7 @@ namespace Pinetime::Controllers {
 
             static Ctf* instance;
             static const unsigned int NUM_OF_CTF_LVLS = 5;
-            char solved[Ctf::NUM_OF_CTF_LVLS];
+            std::string solved;
 
         public:
             Ctf(Ctf& other) = delete;
@@ -19,7 +20,7 @@ namespace Pinetime::Controllers {
             static Ctf* getInstance();
 
             int getNumOfLevels();
-            void getSolved(char* out_arr);
+            void getSolved(std::string& out_str);
             void addSolve(int index);
             bool checkSolve(int index);
     };
