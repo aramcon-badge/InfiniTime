@@ -2,8 +2,10 @@
 #include "displayapp/DisplayApp.h"
 #include "displayapp/screens/Symbols.h"
 #include "components/ble/BleController.h"
+#include "displayapp/TouchEvents.h"
 #include <cstdlib>
 #include <nrf_log.h>
+#include <random>
 
 using namespace Pinetime::Applications::Screens;
 
@@ -62,3 +64,14 @@ void ColorLight::SetColors() {
                                     colors[ble_sum % 8]);
 }
 
+bool ColorLight::OnTouchEvent(TouchEvents event) {
+    switch (event) {
+      case TouchEvents::Tap:
+        randomColor = LV_COLOR_MAKE(rand() % 255, rand() % 255, rand() % 255);
+        lv_obj_set_style_local_bg_color(lv_scr_act(), LV_OBJ_PART_MAIN, LV_STATE_DEFAULT, randomColor);
+        break;
+      default:
+        break;
+    }
+    return true;
+  }

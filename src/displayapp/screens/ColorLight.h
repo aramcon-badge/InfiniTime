@@ -16,11 +16,13 @@ namespace Pinetime {
       public:
         ColorLight(DisplayApp* app, System::SystemTask& systemTask, Controllers::BrightnessController& brightness,
                    Controllers::Ble& bleController);
+        bool OnTouchEvent(TouchEvents event) override;
         ~ColorLight() override;
 
       private:
         void SetColors();
 
+        lv_color_t randomColor;
         Pinetime::System::SystemTask& systemTask;
         Controllers::BrightnessController& brightnessController;
         Controllers::Ble& bleController;
