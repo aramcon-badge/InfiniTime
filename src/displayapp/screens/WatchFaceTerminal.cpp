@@ -251,6 +251,5 @@ void WatchFaceTerminal::Refresh() {
   char ctf_solved[ctfController->getNumOfLevels() + 1] = {0};
   ctfController->getSolved((char*)&ctf_solved);
 
-  lv_label_set_text_fmt(label_ctf, 
-                          "[LVL ] #00FF00 TEST TEST TEST#");
+  lv_label_set_text_fmt(label_ctf, "[LVL ] #00FF00 %s#", ".....");
 }
