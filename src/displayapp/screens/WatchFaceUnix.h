@@ -7,6 +7,7 @@
 #include "displayapp/screens/Screen.h"
 #include "components/datetime/DateTimeController.h"
 #include "components/ble/BleController.h"
+#include "displayapp/screens/WatchFaceUnixImage.h"
 
 namespace Pinetime {
   namespace Controllers {
@@ -32,10 +33,11 @@ namespace Pinetime {
                          Controllers::HeartRateController& heartRateController,
                          Controllers::MotionController& motionController);
         ~WatchFaceUnix() override;
-
         void Refresh() override;
 
       private:
+        int timePointToTimestamp(std::chrono::system_clock::time_point& tp);
+
         uint8_t displayedHour = -1;
         uint8_t displayedMinute = -1;
 
