@@ -435,6 +435,9 @@ list(APPEND SOURCE_FILES
         displayapp/screens/Error.cpp
         displayapp/screens/Alarm.cpp
         displayapp/screens/Styles.cpp
+        displayapp/screens/Sched.cpp
+        displayapp/screens/TheCrypt.cpp
+        displayapp/screens/ColorLight.cpp
         displayapp/Colors.cpp
 
         ## Settings
@@ -502,6 +505,8 @@ list(APPEND SOURCE_FILES
         components/timer/TimerController.cpp
         components/alarm/AlarmController.cpp
         components/fs/FS.cpp
+        components/ctf/CtfController.cpp
+        components/ctf/CtfController.h
         drivers/Cst816s.cpp
         FreeRTOS/port.c
         FreeRTOS/port_cmsis_systick.c
@@ -614,6 +619,13 @@ list(APPEND RECOVERYLOADER_SOURCE_FILES
         recoveryLoader.cpp
         )
 
+add_custom_command(
+  PRE_BUILD
+  OUTPUT src/displayapp/screens/schedule_events.h
+  COMMAND python3 src/displayapp/screens/ics_to_header.py src/displayapp/screens/invite.ics > src/displayapp/screens/schedule_events.h
+  DEPENDS src/displayapp/screens/ics_to_header.py src/displayapp/screens/invite.ics
+  COMMENT "Processing ICS file..."
+)
 
 set(INCLUDE_FILES
 
@@ -648,6 +660,10 @@ set(INCLUDE_FILES
         displayapp/screens/Motion.h
         displayapp/screens/Timer.h
         displayapp/screens/Alarm.h
+        displayapp/screens/Sched.h
+        displayapp/screens/schedule_events.h
+        displayapp/screens/TheCrypt.h
+        displayapp/screens/ColorLight.h
         displayapp/Colors.h
         drivers/St7789.h
         drivers/SpiNorFlash.h

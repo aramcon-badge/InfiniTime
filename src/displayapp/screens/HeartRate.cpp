@@ -8,6 +8,7 @@ using namespace Pinetime::Applications::Screens;
 
 namespace {
   const char* ToString(Pinetime::Controllers::HeartRateController::States s) {
+
     switch (s) {
       case Pinetime::Controllers::HeartRateController::States::NotEnoughData:
         return "Not enough data,\nplease wait...";
@@ -16,7 +17,8 @@ namespace {
       case Pinetime::Controllers::HeartRateController::States::Running:
         return "Measuring...";
       case Pinetime::Controllers::HeartRateController::States::Stopped:
-        return "Stopped";
+        Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
+        return ctfController->checkSolve(2) ? "Stopped" : "Stopped, CTF? 137";
     }
     return "";
   }
@@ -84,7 +86,20 @@ void HeartRate::Refresh() {
       lv_label_set_text(label_hr, "000");
       break;
     default:
-      lv_label_set_text_fmt(label_hr, "%03d", heartRateController.HeartRate());
+      const uint32_t hr = heartRateController.HeartRate();
+      if (hr >= 137)
+      {
+        Pinetime::Controllers::Ctf* ctfController = Pinetime::Controllers::Ctf::getInstance();
+        if (!ctfController->checkSolve(2)) {
+          ctfController->addSolve(2);
+
+          lv_obj_t* ctf_flag_solved_label = lv_label_create(lv_scr_act(), nullptr);
+          lv_label_set_recolor(ctf_flag_solved_label, true);
+          lv_label_set_text_static(ctf_flag_solved_label, "#30c803 GOT FLAG#");
+          lv_obj_align(ctf_flag_solved_label, nullptr, ::LV_ALIGN_CENTER, 0, 0);
+        }
+      }
+      lv_label_set_text_fmt(label_hr, "%03d", hr);
   }
 
   lv_label_set_text(label_status, ToString(state));

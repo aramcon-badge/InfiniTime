@@ -31,6 +31,9 @@
 #include "displayapp/screens/Steps.h"
 #include "displayapp/screens/PassKey.h"
 #include "displayapp/screens/Error.h"
+#include "displayapp/screens/Sched.h"
+#include "displayapp/screens/TheCrypt.h"
+#include "displayapp/screens/ColorLight.h"
 
 #include "drivers/Cst816s.h"
 #include "drivers/St7789.h"
@@ -481,6 +484,15 @@ void DisplayApp::LoadApp(Apps app, DisplayApp::FullRefreshDirections direction) 
       break;
     case Apps::Steps:
       currentScreen = std::make_unique<Screens::Steps>(this, motionController, settingsController);
+      break;
+    case Apps::Sched:
+      currentScreen = std::make_unique<Screens::Schedule>(this);
+      break;
+    case Apps::TheCrypt:
+      currentScreen = std::make_unique<Screens::TheCrypt>(this, dateTimeController);
+      break;
+    case Apps::ColorLight:
+      currentScreen = std::make_unique<Screens::ColorLight>(this, *systemTask, brightnessController, bleController);
       break;
   }
   currentApp = app;

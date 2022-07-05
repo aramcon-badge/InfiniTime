@@ -39,6 +39,9 @@ namespace Pinetime {
       SettingChimes,
       SettingShakeThreshold,
       SettingBluetooth,
+      Sched,
+      TheCrypt,
+      ColorLight,
       Error
     };
   }

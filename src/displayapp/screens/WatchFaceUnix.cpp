@@ -228,8 +228,4 @@ void WatchFaceUnix::Refresh() {
     lv_obj_realign(stepValue);
     lv_obj_realign(stepIcon);
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> 2473e13e679477df24cedcaf1ce274bf48a03ac2
 }
