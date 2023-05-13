@@ -55,9 +55,9 @@ WatchFaceUnix::WatchFaceUnix(DisplayApp* app,
   lv_label_set_text_static(notificationIcon, NotificationIcon::GetIcon(false));
   lv_obj_align(notificationIcon, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 0);
 
-  label_date = lv_label_create(lv_scr_act(), nullptr);
-  lv_obj_align(label_date, lv_scr_act(), LV_ALIGN_IN_BOTTOM_MID, 0, 0);
-  lv_obj_set_style_local_text_color(label_date, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_color_hex(0x30c803));
+  label_unix_time = lv_label_create(lv_scr_act(), nullptr);
+  lv_obj_align(label_unix_time, lv_scr_act(), LV_ALIGN_IN_BOTTOM_MID, 0, 0);
+  lv_obj_set_style_local_text_color(label_unix_time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_color_hex(0x30c803));
 
   aram_logo.header.always_zero = 0; // Initialization
   aram_logo.header.w = 128; // Setting the Width (or) Horizontal length of the image (number of px)
@@ -75,10 +75,9 @@ WatchFaceUnix::WatchFaceUnix(DisplayApp* app,
 
   lv_obj_align(label_time, lv_scr_act(), LV_ALIGN_IN_RIGHT_MID, 0, 0);
 
-  label_aram = lv_label_create(lv_scr_act(), nullptr);
-  lv_obj_align(label_aram, lv_scr_act(), LV_ALIGN_IN_BOTTOM_MID, 0, -42);
-  lv_obj_set_style_local_text_color(label_aram, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_color_hex(0x999999));
-  lv_label_set_text(label_aram, "ARAM");
+  label_date = lv_label_create(lv_scr_act(), nullptr);
+  lv_obj_align(label_date, lv_scr_act(), LV_ALIGN_IN_BOTTOM_MID, 0, -42);
+  lv_obj_set_style_local_text_color(label_date, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_color_hex(0x999999));
 
   label_time_ampm = lv_label_create(lv_scr_act(), nullptr);
   lv_label_set_text_static(label_time_ampm, "");
@@ -171,6 +170,12 @@ void WatchFaceUnix::Refresh() {
     auto dp = date::floor<date::days>(newDateTime);
     auto time = date::make_time(newDateTime - dp);
     auto unixTime = timePointToTimestamp(newDateTime);
+    
+    auto yearMonthDay = date::year_month_day(dp);
+    auto year = static_cast<int>(yearMonthDay.year());
+    auto month = static_cast<Pinetime::Controllers::DateTime::Months>(static_cast<unsigned>(yearMonthDay.month()));
+    auto day = static_cast<unsigned>(yearMonthDay.day());
+    auto dayOfWeek = static_cast<Pinetime::Controllers::DateTime::Days>(date::weekday(yearMonthDay).iso_encoding());
 
     uint8_t hour = time.hours().count();
     uint8_t minute = time.minutes().count();
@@ -199,11 +204,26 @@ void WatchFaceUnix::Refresh() {
     }
 
     if (currentUnixTime != unixTime) {
-      lv_label_set_text_fmt(label_date, "%d", unixTime);
-      lv_obj_realign(label_date);
+      lv_label_set_text_fmt(label_unix_time, "%d", unixTime);
+      lv_obj_realign(label_unix_time);
+      currentUnixTime = unixTime;
     }
 
-    currentUnixTime = unixTime;
+    if ((year != currentYear) || (month != currentMonth) || (dayOfWeek != currentDayOfWeek) || (day != currentDay)) {
+      if (settingsController.GetClockType() == Controllers::Settings::ClockType::H24) {
+        lv_label_set_text_fmt(
+          label_date, "%s %d %s %d", dateTimeController.DayOfWeekShortToString(), day, dateTimeController.AramonthShortToString(), year);
+      } else {
+        lv_label_set_text_fmt(
+          label_date, "%s %s %d %d", dateTimeController.DayOfWeekShortToString(), dateTimeController.AramonthShortToString(), day, year);
+      }
+      lv_obj_realign(label_date);
+
+    currentYear = year;
+    currentMonth = month;
+    currentDayOfWeek = dayOfWeek;
+    currentDay = day;
+    }
   }
 
   heartbeat = heartRateController.HeartRate();

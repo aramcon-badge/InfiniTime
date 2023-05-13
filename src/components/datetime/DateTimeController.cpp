@@ -112,6 +112,14 @@ const char* DateTime::MonthShortToString() const {
   return MonthsString[static_cast<uint8_t>(month)];
 }
 
+const char* DateTime::AramonthShortToString() const {
+  std::string month_string(MonthsString[static_cast<uint8_t>(month)]);
+  if (month_string[0] == 'M') {
+    month_string = "ARAM" + month_string.substr(1);
+  }
+  return month_string.c_str();
+}
+
 const char* DateTime::DayOfWeekShortToString() const {
   return DaysStringShort[static_cast<uint8_t>(dayOfWeek)];
 }

@@ -41,7 +41,14 @@ namespace Pinetime {
         uint8_t displayedHour = -1;
         uint8_t displayedMinute = -1;
 
+        // For the displayed UNIX Time
         unsigned long int currentUnixTime = 0;
+
+        // For the displayed date
+        uint16_t currentYear = 1970;
+        Controllers::DateTime::Months currentMonth = Pinetime::Controllers::DateTime::Months::Unknown;
+        Controllers::DateTime::Days currentDayOfWeek = Pinetime::Controllers::DateTime::Days::Unknown;
+        uint8_t currentDay = 0;
 
         DirtyValue<uint8_t> batteryPercentRemaining {};
         DirtyValue<bool> powerPresent {};
@@ -56,8 +63,8 @@ namespace Pinetime {
 
         lv_obj_t* label_time;
         lv_obj_t* label_time_ampm;
+        lv_obj_t* label_unix_time;
         lv_obj_t* label_date;
-        lv_obj_t* label_aram;
         lv_obj_t* backgroundLabel;
         lv_obj_t* batteryIcon;
         lv_obj_t* bleIcon;
